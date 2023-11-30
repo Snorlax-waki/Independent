@@ -24,9 +24,9 @@
                     <table class="table table-hover text-nowrap">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>名前</th>
-                                <th>種別</th>
+                                <th>イベント</th>
+                                <th></th>
                                 <th>詳細</th>
                             </tr>
                         </thead>

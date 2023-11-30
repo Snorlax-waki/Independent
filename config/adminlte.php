@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => '商品管理',
+    'title' => 'ぷれKey',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>商品管理</b>',
+    'logo' => '<b>ぷれKEY</b>',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => '商品管理',
+    'logo_img_alt' => 'プレゼント',
 
     /*
     |--------------------------------------------------------------------------
@@ -192,7 +192,7 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    'classes_sidebar' => 'sidebar-white-primary elevation-4',
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-white navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
@@ -291,11 +291,16 @@ return [
 
     'menu' => [
         [
-            'text' => '商品一覧',
-            'url'  => 'items',
-            'icon' => 'fas fa-gamepad',
+            'text' => '贈る人一覧',
+            'url'  => '/target/index',
+            'icon' => 'fas fa-solid fa-user',
         ],
 
+        [
+            'text' => '検索',
+            'url'  => '/target/search',
+            'icon' => 'fas fa-solid fa-address-book',
+        ],
         // AdminLTEデフォルト
         /*
         // Navbar items:
