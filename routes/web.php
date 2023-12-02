@@ -29,6 +29,8 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 //ターゲット一覧画面
 Route::get('/target/index',[App\Http\Controllers\TargetController::class,'index'])->name('/target/index');
+//ターゲット日付毎の一覧
+Route::get('/target/orderByDay',[App\Http\Controllers\TargetController::class,'orderByDay']);
 //ターゲット登録画面
 Route::get('/target/register',[App\Http\Controllers\TargetController::class,'register']);
 Route::post('/targetRegister',[App\Http\Controllers\TargetController::class,'targetRegister']);
@@ -37,6 +39,8 @@ Route::get('/target/information/{id}',[App\Http\Controllers\TargetController::cl
 //ターゲット編集画面
 Route::get('/target/edit/{id}', [App\Http\Controllers\TargetController::class, 'edit']);
 Route::post('/targetEdit', [App\Http\Controllers\TargetController::class, 'targetEdit']);
+//ターゲットクローン作成(元データ削除)
+Route::post('/targetClone/{id}', [App\Http\Controllers\TargetController::class, 'targetClone']);
 //ターゲット検索画面
 Route::get('target/search',[App\Http\Controllers\TargetController::class,'search']);
 //イベント毎の検索画面

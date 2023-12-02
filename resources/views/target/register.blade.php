@@ -1,33 +1,36 @@
 @extends('adminlte::page')
 
-@section('title', '贈る人一覧')
-
 @section('content_header')
-    <h1>贈る人を登録する</h1><br>
+    <h1>贈る人を登録する&nbsp;<img src="/img/アイコン/キー.png" class="key-icon"></h1><br>
     <h6><font color="red">※<span class="badge text-bg-danger">項目</span>は必須</font></h6>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <title>登録画面</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
 </head>
 
 <style>
+    .w30{
+        width: 30%;
+        position: relative;
+    }
 
-.w30{
-    width: 30%;
-    position: relative;
-}
+    .w50{
+        width: 50%;
+        position: relative;
+    }
 
-.w50{
-    width: 50%;
-    position: relative;
-}
+    .key-icon{
+            width: 100px;
+        }
 
 </style>
+@stop
 
+@section('content')
 @if (count($errors) > 0)
     <div class="alert alert-danger">    
         <ul>
@@ -39,9 +42,7 @@
 @endif
 
 
-<body>
-    
-<div class="container mt-1 pt-lg-3 pb-lg-5 px-lg-5 bg-white">
+<div class="container mt-1 pt-lg-3 pb-lg-5 px-lg-5 bg-white shadow">
 
 @if (count($errors) > 0)
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -49,9 +50,9 @@
         </div>
 @endif
 
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <a href="/target/index">>>一覧画面へ戻る</a>
-    </div>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <a href="/target/index">>>一覧画面へ戻る</a>
+</div>
 
 <form action="/targetRegister" method="post" enctype="multipart/form-data" autocomplete="off">
 @csrf
@@ -95,9 +96,27 @@
     
     <div class="mb-3">
         <span class="badge text-bg-danger">贈る日</span>&emsp;
-        <input type="date" name="xday" value="{{ old('xday') }}">@if($errors->has('xday'))<font color="red">&nbsp;※&nbsp;日付必須</font>@endif
+        <input type="text" name="xday" id="date" value="{{ old('xday') }}" placeholder="&emsp;年&nbsp;/&nbsp;月&nbsp;/&nbsp;日">@if($errors->has('xday'))<font color="red">&nbsp;※&nbsp;日付必須</font>@endif
     </div>
 
+    <span class="badge text-bg-danger">ステータス</span>
+        <select class="form-select w30 @if($errors->has('status')) is-invalid @endif" name="status">
+            <option disabled selected>選択してください</option>
+            <option value="1" @if( old('status') == '1' ) selected @endif>考え中…</option>
+            <option value="2" @if( old('status') == '2' ) selected @endif>決めた!</option>
+            <option value="3" @if( old('status') == '3' ) selected @endif>購入済</option>
+        </select>
+        <br>
+    
+    <button type="submit" class="btn btn-outline-success bg-success-subtle w30">登録</button><br><br>
+    
+    <div class="morelink">
+        <a href="#readmore">
+            <b>&emsp;&emsp;↓↓&emsp;もっと詳細を登録する&emsp;↓↓&emsp;&emsp;</b><br><br>
+        </a>
+    </div>
+
+<div class="hide-text" id="readmore">
     <span class="badge text-bg-secondary">予算</span>
         <div class="input-group w30">
             <input type="text" class="form-control @if($errors->has('budget')) is-invalid @endif" name="budget" placeholder="半角数字" value="{{ old('budget') }}">
@@ -490,19 +509,14 @@
             </div>
         </div><br>
 
-    <span class="badge text-bg-danger">ステータス</span>
-        <select class="form-select w-25 @if($errors->has('status')) is-invalid @endif" name="status">
-            <option disabled selected>選択してください</option>
-            <option value="1" @if( old('status') == '1' ) selected @endif>考え中…</option>
-            <option value="2" @if( old('status') == '2' ) selected @endif>決めた!</option>
-            <option value="3" @if( old('status') == '3' ) selected @endif>購入済</option>
-        </select>
-        <br>
-
-    <button type="submit" class="btn btn-success w-25">登録</button>
+    <button type="submit" class="btn btn-success w30">登録</button>
+    </hide-text>
 </form>
 </div>
+@stop
 
+@section('js')
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <script>
 $(document).on("change",".preview-uploader",function(){
     let elem = this                                             
@@ -514,6 +528,23 @@ $(document).on("change",".preview-uploader",function(){
     });
 })
 
+$('#date').datepicker({ dateFormat: 'yy/mm/dd'});
+$('#event2').change(function(){
+    $('#date').datepicker("setDate", (new Date()).getFullYear() + "/12/25");
+});
+
+function showMoreJq(btn) {
+   var targetId = btn.getAttribute("href"); // 表示対象のid名をhref属性値から得る
+   $(targetId).slideDown("slow");           // 表示対象をアニメーション効果と共に表示
+   $(btn.parentNode).slideUp("fast");       // 続きを読むリンクをアニメーション効果と共に消す
+   return false;                            // リンクとして機能しないようfalseを返す
+}
+// ▼ページ読み込み直後に実行するスクリプト
+$(function(){
+   // 詳細入力フォームを非表示にする
+   $(".hide-text").hide();
+   // もっと入力するリンクがクリックされた際の処理を割り当てる
+   $(".morelink a").click( function() { return showMoreJq(this); } );
+});
 </script>
-@endsection
-</body>
+@stop

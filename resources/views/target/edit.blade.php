@@ -1,9 +1,7 @@
 @extends('adminlte::page')
 
-@section('title', '贈る人一覧')
-
 @section('content_header')
-    <h1>{{ $target->name }}さんのキーを編集する</h1><br>
+    <h1>{{ $target->name }}さんの<font size="10">KEY</font>を編集する&nbsp;<img src="/img/アイコン/キー.png" class="key-icon"></h1><br>
     <h6><font color="red">※<span class="badge text-bg-danger">項目</span>は必須</font></h6>
 
 <head>
@@ -11,11 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <title>登録画面</title>
 </head>
 
 <style>
-
 .w30{
     width: 30%;
     position: relative;
@@ -26,7 +22,14 @@
     position: relative;
 }
 
+.key-icon{
+        width: 100px;
+    }
+
 </style>
+@stop
+
+@section('content')
 
 @if (count($errors) > 0)
     <div class="alert alert-danger">    
@@ -37,15 +40,12 @@
         </ul>
     </div>
 @endif
-
-
-<body>
     
-<div class="container mt-1 pt-lg-3 pb-lg-5 px-lg-5 bg-white">
+<div class="container mt-1 pt-lg-3 pb-lg-5 px-lg-5 bg-white shadow">
 
 @if (count($errors) > 0)
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <br><a href="/target/register">全ての項目をクリアにする</a>
+            <br><a href="/target/edit">全ての項目をクリアにする</a>
         </div>
 @endif
 
@@ -53,17 +53,23 @@
         <a href="/target/index">>>一覧画面へ戻る</a>
     </div>
 
-<form action="/targetRegister" method="post" enctype="multipart/form-data" autocomplete="off">
-@csrf
-    <div class="mb-3 w30">
-        <span class="badge text-bg-secondary">写真</span><br>
-            <input class="preview-uploader @if($errors->has('image')) is-invalid @endif" id="image" type="file" name="image">
-            @if($target->image!=null)
-            <img src="data:image/jpg;base64,{{ $target->image }}">
-            <p style="color:#c82c55"><登録済みの画像></p>
-            @endif
-        <div class="preview d-flex justify-content-center" style="width:300px"></div>
-    </div>
+    <form action="/targetEdit" method="post" enctype="multipart/form-data" autocomplete="off">
+    @csrf
+        <div class="mb-3 w30">
+            <span class="badge text-bg-secondary">写真</span>
+                <div class="d-flex flex-row">
+                @if($target->image!=null)
+                    <div class="p-2 col">
+                        <img src="data:image/jpg;base64,{{ $target->image }}">
+                        <p style="color:#c82c55"><登録済みの画像></p>
+                    </div>
+                @endif
+                    <div class="p-2">
+                        <input class="preview-uploader @if($errors->has('image')) is-invalid @endif" id="image" type="file" name="image">
+                        <div class="preview col" style="width:300px"></div>
+                    </div>
+                </div>
+        </div>
 
     <div class="mb-3 w30">
         <span class="badge text-bg-danger">名前</span><br>
@@ -99,14 +105,23 @@
     
     <div class="mb-3">
         <span class="badge text-bg-danger">贈る日</span>&emsp;
-        <input type="date" name="xday" value="{{ old('xday',$target->xday) }}">@if($errors->has('xday'))<font color="red">&nbsp;※&nbsp;日付必須</font>@endif
+        <input type="text" name="xday" id="date" value="{{ old('xday',$target->xday) }}" placeholder="&emsp;年&nbsp;/&nbsp;月&nbsp;/&nbsp;日">@if($errors->has('xday'))<font color="red">&nbsp;※&nbsp;日付必須</font>@endif
     </div>
+
+    <span class="badge text-bg-danger">ステータス</span>
+        <select class="form-select w30 @if($errors->has('status')) is-invalid @endif" name="status">
+            <option disabled selected>選択してください</option>
+            <option value="1" @if( old('status',$target->status) == '1' ) selected @endif>考え中…</option>
+            <option value="2" @if( old('status',$target->status) == '2' ) selected @endif>決めた!</option>
+            <option value="3" @if( old('status',$target->status) == '3' ) selected @endif>購入済</option>
+        </select>
+        <br>
 
     <span class="badge text-bg-secondary">予算</span>
         <div class="input-group w30">
             <input type="text" class="form-control @if($errors->has('budget')) is-invalid @endif" name="budget" placeholder="半角数字" value="{{ old('budget',$target->budget) }}">
             <span class="input-group-text">円</span>
-    </div><br>
+        </div><br>
 
     <span class="badge text-bg-secondary">趣味</span>
         <div class="d-flex flex-row">
@@ -494,17 +509,10 @@
             </div>
         </div><br>
 
-    <span class="badge text-bg-danger">ステータス</span>
-        <select class="form-select w-25 @if($errors->has('status')) is-invalid @endif" name="status">
-            <option disabled selected>選択してください</option>
-            <option value="1" @if( old('status',$target->status) == '1' ) selected @endif>考え中…</option>
-            <option value="2" @if( old('status',$target->status) == '2' ) selected @endif>決めた!</option>
-            <option value="3" @if( old('status',$target->status) == '3' ) selected @endif>購入済</option>
-        </select>
-        <br>
+        <input type="hidden" name="id" value="{{$target->id}}">
 
     <button type="submit" class="btn btn-success w-25">登録</button><br>
-    
+
 </form>
 
     <form action="/targetDelete/{{$target->id}}" method="post">
@@ -516,7 +524,10 @@
         <button type="submit" class="btn btn-danger w-25">削除</button>
     </form>
 </div>
+@stop
 
+@section('js')
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <script>
 $(document).on("change",".preview-uploader",function(){
     let elem = this                                             
@@ -528,6 +539,10 @@ $(document).on("change",".preview-uploader",function(){
     });
 })
 
+$('#date').datepicker({ dateFormat: 'yy/mm/dd'});
+$('#event2').change(function(){
+    $('#date').datepicker("setDate", (new Date()).getFullYear() + "/12/25");
+});
+
 </script>
-@endsection
-</body>
+@stop

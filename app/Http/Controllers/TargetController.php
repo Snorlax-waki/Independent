@@ -5,17 +5,39 @@ namespace App\Http\Controllers;
 use App\Libraries\PlanetextToUrl;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\Target;
-use Illminate\Support\Collection;
+use DateTime;
+use Carbon\Carbon;
+
 
 class TargetController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
 
-        $target = Target::all();
+        $target = Target::orderBy('updated_at','desc')->paginate(5);
 
         return view('target.index', compact('target'));
+    }
+
+    public function orderByDay(Request $request){
+
+        $target = Target::orderBy('xday')->paginate(5);
+
+        return view('target.index', compact('target'));
+    }
+
+
+    public function targetClone($id)
+    {
+       $target = Target::find($id);
+       $new_target = $target->replicate();
+       $date = Carbon::parse($target->xday);
+       $oneYearLater = $date->addYear();
+       $new_target->xday = $oneYearLater->toDateString();
+       $new_target->save();
+       $target->delete();
+
+       return redirect('/target/index');
     }
 
     public function register(Request $request){
@@ -39,18 +61,17 @@ class TargetController extends Controller
            'fav_thing' => 'max:100',
            'memo' => 'max:500',
            'idea' => 'max:100',
-           'url' => 'max:255',
+           'url' => 'nullable | url | max:255',
            'idea2' => 'max:100',
-           'url2' => 'max:255',
+           'url2' => 'nullable | url | max:255',
            'idea3' => 'max:100',
-           'url3' => 'max:255',
+           'url3' => 'nullable | url | max:255',
            'status' => 'required',
             ],
        );
 
         //新しいレコードの追加
         $target = new Target();
-        $target->id = $request->id;
         $target->name = $request->name;
         $target->event = $request->event;
         $target->xday = $request->xday;
@@ -112,28 +133,27 @@ class TargetController extends Controller
 
         //バリデーション
        $request->validate([
-        'image' => 'nullable | mimes:jpg,png',
-        'name' => 'required | max:100 ',
-        'event' => 'required',
-        'xday' => 'required',
-        'hobby_other' => 'max:100',
-        'fav_food_drink' => 'max:100',
-        'fav_thing' => 'max:100',
-        'memo' => 'max:500',
-        'idea' => 'max:100',
-        'url' => 'max:255',
-        'idea2' => 'max:100',
-        'url2' => 'max:255',
-        'idea3' => 'max:100',
-        'url3' => 'max:255',
-        'status' => 'required',
-        ],
-    );
+           'image' => 'nullable | mimes:jpg,png',
+           'name' => 'required | max:100 ',
+           'event' => 'required',
+           'xday' => 'required',
+           'hobby_other' => 'max:100',
+           'fav_food_drink' => 'max:100',
+           'fav_thing' => 'max:100',
+           'memo' => 'max:500',
+           'idea' => 'max:100',
+           'url' => 'nullable | url | max:255',
+           'idea2' => 'max:100',
+           'url2' => 'nullable | url | max:255',
+           'idea3' => 'max:100',
+           'url3' => 'nullable | url | max:255',
+           'status' => 'required',
+            ],
+       );
  
-          //既存のレコードを取得して編集してから保存する
+        //既存のレコードを取得して編集してから保存する
         $target = Target::where('id','=',$request->id)->first();
 
-        $target->id = $request->id;
         $target->name = $request->name;
         $target->event = $request->event;
         $target->xday = $request->xday;
@@ -179,48 +199,48 @@ class TargetController extends Controller
 
 //イベント毎の検索
     public function searchEvent1(){
-        $target= Target::where('event','1')->get();
+        $target= Target::where('event','1')->paginate(5);
         return view('target.index',compact('target'));
     }
 
     public function searchEvent2(){
-        $target= Target::where('event','2')->get();
+        $target= Target::where('event','2')->paginate(5);
         return view('target.index',compact('target'));
     }
 
     public function searchEvent3(){
-        $target= Target::where('event','3')->get();
+        $target= Target::where('event','3')->paginate(5);
         return view('target.index',compact('target'));
     }
 
     public function searchEvent4(){
-        $target= Target::where('event','4')->get();
+        $target= Target::where('event','4')->paginate(5);
         return view('target.index',compact('target'));
     }
 
     public function searchEvent5(){
-        $target= Target::where('event','5')->get();
+        $target= Target::where('event','5')->paginate(5);
         return view('target.index',compact('target'));
     }
 
     public function searchEvent6(){
-        $target= Target::where('event','6')->get();
+        $target= Target::where('event','6')->paginate(5);
         return view('target.index',compact('target'));
     }
 
 //ステータス毎の検索
     public function searchStatus1(){
-        $target= Target::where('status','1')->get();
+        $target= Target::where('status','1')->paginate(5);
         return view('target.index',compact('target'));
     }
 
     public function searchStatus2(){
-        $target= Target::where('status','2')->get();
+        $target= Target::where('status','2')->paginate(5);
         return view('target.index',compact('target'));
     }
 
     public function searchStatus3(){
-        $target= Target::where('status','3')->get();
+        $target= Target::where('status','3')->paginate(5);
         return view('target.index',compact('target'));
     }
 
@@ -237,7 +257,7 @@ class TargetController extends Controller
             $query->where('name','LIKE',"%{$keyword}%");
         }
  
-        $target = $query->paginate(10);
+        $target = $query->paginate(5);
  
         return view('target.index',compact('target','keyword'));
          
