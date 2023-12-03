@@ -299,7 +299,7 @@ return [
         [
             'text' => '検索',
             'url'  => '/target/search',
-            'icon' => 'fas fa-solid fa-address',
+            'icon' => 'fas fa-duotone fa-users',
         ],
         // AdminLTEデフォルト
         /*
