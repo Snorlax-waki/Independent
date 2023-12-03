@@ -536,7 +536,7 @@
             </div>
         </div><br>
 
-    <a href="#kimeta"><b>◯プレゼントが決まったら、ステータスを更新してプレゼントの商品名やURLを入れておきましょう。(こちら)</b></a><br><br>
+    <a href="#kimeta">◯プレゼントが決まったら、ステータスを更新してプレゼントの商品名やURLを入れておきましょう。(こちら)</a><br><br>
         
     <input type="hidden" name="id" value="{{$target->id}}">
 

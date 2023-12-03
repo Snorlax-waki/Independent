@@ -192,9 +192,9 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-secondary elevation-4',
+    'classes_sidebar' => 'sidebar-olive elevation-4',
     'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-white navbar-light',
+    'classes_topnav' => 'navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
 
@@ -299,7 +299,7 @@ return [
         [
             'text' => '検索',
             'url'  => '/target/search',
-            'icon' => 'fas fa-solid fa-address-book',
+            'icon' => 'fas fa-solid fa-address',
         ],
         // AdminLTEデフォルト
         /*
