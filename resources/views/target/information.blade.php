@@ -20,6 +20,12 @@
     .bg-dark-subtle{
         width: 20%;
     }
+    .bg-secondary-subtle{
+        width: 20%;
+    }
+    .bg-warning-subtle{
+        width: 20%;
+    }
 
     .ml-4{
         width: 50px;
@@ -27,6 +33,10 @@
 
     .key-icon{
         width: 100px;
+    }
+
+    .content-wrapper {
+        overflow-y: auto;
     }
 
 </style>
@@ -68,6 +78,14 @@
             </div><br>
     <table class="table table-bordered shadow-sm">
         <tbody>
+            @if($target->present!=null)
+                <tr>
+                    <td class="bg-warning"><b>これに決めた！</b></td>
+                    <td>○{{ $target->present }}
+                    @if($target->pre_url!=null)<div class="auto-link">URL&nbsp;:&nbsp;{!! nl2br($pre_url) !!}</div>@endif
+                    </td>
+                </tr>
+            @endif
             @if($target->budget!=null)
                 <tr>
                     <td class="bg-dark-subtle"><b>予算</b></td>
@@ -141,6 +159,12 @@
                     <td>○{{ $target->idea3 }}
                     @if($target->url3!=null)<div class="auto-link">URL&nbsp;:&nbsp;{!! nl2br($url3) !!}</div>@endif
                     </td>
+                </tr>
+            @endif
+            @if($target->past!=null)
+                <tr>
+                    <td class="bg-secondary-subtle"><b>前回のプレゼント</b></td>
+                    <td>{{ $target->past }}</td>
                 </tr>
             @endif
         </tbody>

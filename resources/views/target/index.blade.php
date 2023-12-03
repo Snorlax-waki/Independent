@@ -31,6 +31,10 @@
         width: 100px;
     }
 
+    .content-wrapper {
+        overflow-y: auto;
+    }
+
 </style>
 
 @section('content')
@@ -82,18 +86,12 @@
             @if( $time->invert == 1 )
             <div class="d-flex flex-row">
                 <div class="p-2">
-                    <font size="3"><b>{{ $time->days }}</b></font>日が過ぎました&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;→&emsp;→&emsp;→&emsp;&emsp;&emsp;&emsp;&nbsp;
+                    <font size="3"><b>{{ $time->days }}</b></font>日が過ぎました&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;→&emsp;→&emsp;→&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                 </div>
                 <div class="p-2 ml5">
                     <form method="post" action="/targetClone/{{$value->id}}">
                     @csrf
                     <button type="submit" class="btn btn-outline-dark bg-danger-subtle btn-sm shadow">今年のレコードを<b>削除して</b>来年の予定を追加する<br>(内容は引き継がれます)</button>
-                    </form>
-                </div>
-                <div class="p-2 ml5">
-                    <form method="post" action="/targetDelete/{{$value->id}}">
-                    @csrf
-                    <button type="submit" class="btn btn-danger">削除する</button>
                     </form>
                 </div>
             </div>

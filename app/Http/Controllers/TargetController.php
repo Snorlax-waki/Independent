@@ -31,6 +31,7 @@ class TargetController extends Controller
     {
        $target = Target::find($id);
        $new_target = $target->replicate();
+       $new_target->past = $target->present;
        $date = Carbon::parse($target->xday);
        $oneYearLater = $date->addYear();
        $new_target->xday = $oneYearLater->toDateString();
@@ -67,6 +68,8 @@ class TargetController extends Controller
            'idea3' => 'max:100',
            'url3' => 'nullable | url | max:255',
            'status' => 'required',
+           'present' => 'max:100',
+           'pre_url' => 'nullable | url | max:255',
             ],
        );
 
@@ -93,6 +96,8 @@ class TargetController extends Controller
         $target->idea3 = $request->idea3;
         $target->url3= $request->url3;
         $target->status = $request->status;
+        $target->present = $request->present;
+        $target->pre_url= $request->pre_url;
         $target->user_id = Auth::id();
         //dd($request);
 
@@ -116,8 +121,9 @@ class TargetController extends Controller
         $url = PlanetextToUrl::convertLink($target->url);
         $url2 = PlanetextToUrl::convertLink($target->url2);
         $url3 = PlanetextToUrl::convertLink($target->url3);
+        $pre_url = PlanetextToUrl::convertLink($target->pre_url);
         
-        return view('/target/information',compact('target','url','url2','url3'));
+        return view('/target/information',compact('target','url','url2','url3','pre_url'));
     }
 
     public function edit($id){
@@ -148,6 +154,8 @@ class TargetController extends Controller
            'idea3' => 'max:100',
            'url3' => 'nullable | url | max:255',
            'status' => 'required',
+           'present' => 'max:100',
+           'pre_url' => 'nullable | url | max:255',
             ],
        );
  
@@ -175,6 +183,8 @@ class TargetController extends Controller
         $target->idea3 = $request->idea3;
         $target->url3= $request->url3;
         $target->status = $request->status;
+        $target->present = $request->present;
+        $target->pre_url= $request->pre_url;
         $target->user_id = Auth::id();
         //dd($request);
  

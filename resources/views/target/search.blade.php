@@ -29,9 +29,17 @@
         width: 100px;
     }
 
+    .content-wrapper {
+        overflow-y: auto;
+    }
+
 </style>
 
 <div class="container mt-1 pt-lg-3 pb-lg-5 px-lg-5 bg-white shadow">
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <a href="/target/index">>>一覧画面へ戻る</a>
+</div>
 
 <div class="card"> 
   <h5 class="card-header bg-dark-subtle">名前で探す</h5>
@@ -40,7 +48,7 @@
         @csrf
             <div class="input-group w30 d-flex flex-row justify-content">
                 <input type="search" class="form-control" placeholder="名前を入力" name="keyword">
-                <button type="submit" class="btn btn-info">検索</button>  
+                <button type="submit" class="btn btn-outline-secondary bg-secondary-subtle">検索</button>  
             </div>
         </form>
   </div>

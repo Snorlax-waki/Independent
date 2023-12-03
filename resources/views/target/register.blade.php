@@ -27,6 +27,10 @@
             width: 100px;
         }
 
+    .content-wrapper {
+         overflow-y: auto;
+    }
+
 </style>
 @stop
 
@@ -99,7 +103,7 @@
         <input type="text" name="xday" id="date" value="{{ old('xday') }}" placeholder="&emsp;年&nbsp;/&nbsp;月&nbsp;/&nbsp;日">@if($errors->has('xday'))<font color="red">&nbsp;※&nbsp;日付必須</font>@endif
     </div>
 
-    <span class="badge text-bg-danger">ステータス</span>
+    <span class="badge text-bg-danger" id ="kimeta">ステータス</span>
         <select class="form-select w30 @if($errors->has('status')) is-invalid @endif" name="status">
             <option disabled selected>選択してください</option>
             <option value="1" @if( old('status') == '1' ) selected @endif>考え中…</option>
@@ -107,6 +111,19 @@
             <option value="3" @if( old('status') == '3' ) selected @endif>購入済</option>
         </select>
         <br>
+
+    <h5><span class="badge text-bg-warning">これに決めた！</span></h5>
+        <div class="d-flex flex-row">
+            <div class="col input-group">
+                <span class="input-group-text bg-warning">商品名</span>
+                <input type="text" class="form-control @if($errors->has('present')) is-invalid @endif" value="{{ old('present') }}" placeholder="プレゼント商品名" name="present">
+            </div>
+        <p>:</p>
+            <div class="col input-group">
+                <span class="input-group-text bg-warning">商品URL</span>
+                <input type="text" class="form-control @if($errors->has('pre_url')) is-invalid @endif" value="{{ old('pre_url') }}" placeholder="プレゼントURL" name="pre_url">
+            </div>
+        </div><br>
     
     <button type="submit" class="btn btn-outline-success bg-success-subtle w30">登録</button><br><br>
     
@@ -508,6 +525,8 @@
                 <input type="text" class="form-control @if($errors->has('url3')) is-invalid @endif" value="{{ old('url3') }}" placeholder="商品URL" name="url3">
             </div>
         </div><br>
+
+        <a href="#kimeta"><b>◯プレゼントが決まったら、ステータスを更新してプレゼントの商品名やURLを入れておきましょう。(こちら)</b></a><br><br>
 
     <button type="submit" class="btn btn-success w30">登録</button>
     </hide-text>

@@ -32,6 +32,8 @@ class Target extends Model
         'url2',
         'idea3',
         'url3',
+        'present',
+        'pre_url',
     ];
 
     protected $dates = [

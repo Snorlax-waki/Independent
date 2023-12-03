@@ -8,10 +8,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
 </head>
 
 <style>
+.img{
+        border-radius: 50%;
+        width: 150px;
+    }
+
 .w30{
     width: 30%;
     position: relative;
@@ -25,6 +31,10 @@
 .key-icon{
         width: 100px;
     }
+
+.content-wrapper {
+  overflow-y: auto;
+}
 
 </style>
 @stop
@@ -53,20 +63,22 @@
         <a href="/target/index">>>一覧画面へ戻る</a>
     </div>
 
+    @if($target->image!=null)
+        <div class="p-2 col">
+            <img src="data:image/jpg;base64,{{ $target->image }}" class="img">
+        </div>
+    @endif
+
     <form action="/targetEdit" method="post" enctype="multipart/form-data" autocomplete="off">
     @csrf
         <div class="mb-3 w30">
             <span class="badge text-bg-secondary">写真</span>
                 <div class="d-flex flex-row">
-                @if($target->image!=null)
-                    <div class="p-2 col">
-                        <img src="data:image/jpg;base64,{{ $target->image }}">
-                        <p style="color:#c82c55"><登録済みの画像></p>
-                    </div>
-                @endif
+                
                     <div class="p-2">
                         <input class="preview-uploader @if($errors->has('image')) is-invalid @endif" id="image" type="file" name="image">
                         <div class="preview col" style="width:300px"></div>
+                        <p>↑&emsp;Preview&emsp;↑</p>
                     </div>
                 </div>
         </div>
@@ -108,7 +120,7 @@
         <input type="text" name="xday" id="date" value="{{ old('xday',$target->xday) }}" placeholder="&emsp;年&nbsp;/&nbsp;月&nbsp;/&nbsp;日">@if($errors->has('xday'))<font color="red">&nbsp;※&nbsp;日付必須</font>@endif
     </div>
 
-    <span class="badge text-bg-danger">ステータス</span>
+    <span class="badge text-bg-danger" id="kimeta">ステータス</span>
         <select class="form-select w30 @if($errors->has('status')) is-invalid @endif" name="status">
             <option disabled selected>選択してください</option>
             <option value="1" @if( old('status',$target->status) == '1' ) selected @endif>考え中…</option>
@@ -116,6 +128,21 @@
             <option value="3" @if( old('status',$target->status) == '3' ) selected @endif>購入済</option>
         </select>
         <br>
+
+    <h5><span class="badge text-bg-warning">これに決めた！</span></h5>
+    <div class="d-flex flex-row">
+        <div class="col input-group">
+            <span class="input-group-text bg-warning">商品名</span>
+            <input type="text" class="form-control @if($errors->has('present')) is-invalid @endif" value="{{ old('present') }}" placeholder="プレゼント商品名" name="present">
+        </div>
+    <p>:</p>
+        <div class="col input-group">
+            <span class="input-group-text bg-warning">商品URL</span>
+            <input type="text" class="form-control @if($errors->has('pre_url')) is-invalid @endif" value="{{ old('pre_url') }}" placeholder="プレゼントURL" name="pre_url">
+        </div>
+    </div><br>
+    
+    <button type="submit" class="btn btn-outline-success bg-success-subtle w30">登録</button><br><br>
 
     <span class="badge text-bg-secondary">予算</span>
         <div class="input-group w30">
@@ -509,7 +536,9 @@
             </div>
         </div><br>
 
-        <input type="hidden" name="id" value="{{$target->id}}">
+    <a href="#kimeta"><b>◯プレゼントが決まったら、ステータスを更新してプレゼントの商品名やURLを入れておきましょう。(こちら)</b></a><br><br>
+        
+    <input type="hidden" name="id" value="{{$target->id}}">
 
     <button type="submit" class="btn btn-success w-25">登録</button><br>
 
