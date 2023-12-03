@@ -33,6 +33,7 @@ class TargetController extends Controller
        $new_target = $target->replicate();
        $new_target->past = $target->present;
        $new_target->present = '';
+       $new_target->pre_url = '';
        $date = Carbon::parse($target->xday);
        $oneYearLater = $date->addYear();
        $new_target->xday = $oneYearLater->toDateString();
