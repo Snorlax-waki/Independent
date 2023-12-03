@@ -54,8 +54,8 @@ class TargetController extends Controller
 
        //バリデーション
        $request->validate([
-           'image' => 'nullable | mimes:jpg,png',
-           'name' => 'required | max:100 ',
+           'image' => 'nullable | mimes:jpg,png | max:100',
+           'name' => 'required | max:100',
            'event' => 'required',
            'xday' => 'required',
            'hobby_other' => 'max:100',
@@ -140,7 +140,7 @@ class TargetController extends Controller
 
         //バリデーション
        $request->validate([
-           'image' => 'nullable | mimes:jpg,png',
+           'image' => 'nullable | mimes:jpg,png | max:100',
            'name' => 'required | max:100 ',
            'event' => 'required',
            'xday' => 'required',

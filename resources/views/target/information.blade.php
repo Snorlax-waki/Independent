@@ -20,9 +20,7 @@
     .bg-dark-subtle{
         width: 20%;
     }
-    .bg-secondary-subtle{
-        width: 20%;
-    }
+
     .bg-warning-subtle{
         width: 20%;
     }
@@ -163,7 +161,7 @@
             @endif
             @if($target->past!=null)
                 <tr>
-                    <td class="bg-secondary-subtle"><b>前回のプレゼント</b></td>
+                    <td class="bg-dark-subtle"><b>前回のプレゼント</b></td>
                     <td>{{ $target->past }}</td>
                 </tr>
             @endif
