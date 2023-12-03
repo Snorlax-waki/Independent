@@ -133,12 +133,12 @@
     <div class="d-flex flex-row">
         <div class="col input-group">
             <span class="input-group-text bg-warning">商品名</span>
-            <input type="text" class="form-control @if($errors->has('present')) is-invalid @endif" value="{{ old('present',present) }}" placeholder="プレゼント商品名" name="present">
+            <input type="text" class="form-control @if($errors->has('present')) is-invalid @endif" value="{{ old('present',$target->present) }}" placeholder="プレゼント商品名" name="present">
         </div>
     <p>:</p>
         <div class="col input-group">
             <span class="input-group-text bg-warning">商品URL</span>
-            <input type="text" class="form-control @if($errors->has('pre_url')) is-invalid @endif" value="{{ old('pre_url') }}" placeholder="プレゼントURL" name="pre_url">
+            <input type="text" class="form-control @if($errors->has('pre_url')) is-invalid @endif" value="{{ old('pre_url',$target->pre_url) }}" placeholder="プレゼントURL" name="pre_url">
         </div>
     </div><br>
     
