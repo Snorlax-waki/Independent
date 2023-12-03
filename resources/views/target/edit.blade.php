@@ -133,7 +133,7 @@
     <div class="d-flex flex-row">
         <div class="col input-group">
             <span class="input-group-text bg-warning">商品名</span>
-            <input type="text" class="form-control @if($errors->has('present')) is-invalid @endif" value="{{ old('present') }}" placeholder="プレゼント商品名" name="present">
+            <input type="text" class="form-control @if($errors->has('present')) is-invalid @endif" value="{{ old('present',present) }}" placeholder="プレゼント商品名" name="present">
         </div>
     <p>:</p>
         <div class="col input-group">
