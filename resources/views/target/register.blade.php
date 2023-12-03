@@ -64,6 +64,7 @@
         <span class="badge text-bg-secondary">写真</span><br>
             <input class="preview-uploader @if($errors->has('image')) is-invalid @endif" id="image" type="file" name="image">
             <div class="preview" style="width:300px"></div>
+            <p>↑&emsp;Preview&emsp;↑</p>
     </div>
 
     <div class="mb-3 w30">

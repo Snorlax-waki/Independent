@@ -194,7 +194,7 @@ return [
     'classes_content' => '',
     'classes_sidebar' => 'sidebar-olive elevation-4',
     'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-light',
+    'classes_topnav' => 'navbar-white',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
 
