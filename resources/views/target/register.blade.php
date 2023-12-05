@@ -61,7 +61,7 @@
 <form action="/targetRegister" method="post" enctype="multipart/form-data" autocomplete="off">
 @csrf
     <div class="mb-3 w30">
-        <span class="badge text-bg-secondary">写真</span><br>
+        <span class="badge text-bg-secondary">写真</span><font size="2"><b>&nbsp;※50KB以下</b></font><br>
             <input class="preview-uploader @if($errors->has('image')) is-invalid @endif" id="image" type="file" name="image">
             <div class="preview" style="width:300px"></div>
             <p>↑&emsp;Preview&emsp;↑</p>
@@ -468,8 +468,8 @@
             <datalist id="data1">
                 <option value="#ea5550"></option>
                 <option value="#00afcc"></option>
-                <option value="#ffff00"></option>
-                <option value="#00ff00"></option>
+                <option value="#ffdc00"></option>
+                <option value="#00cc00"></option>
                 <option value="#eb6ea0"></option>
                 <option value="#ff9328"></option>
                 <option value="#915da3"></option>
@@ -527,7 +527,7 @@
             </div>
         </div><br>
 
-        <a href="#kimeta">◯プレゼントが決まったら、ステータスを更新してプレゼントの商品名やURLを入れておきましょう。(こちら)</a><br><br>
+        <a href="#kimeta">◯プレゼントが決まったら…ステータスを更新してプレゼントの商品名やURLを入力しておきましょう。(こちらからジャンプ)◯</a><br><br>
 
     <button type="submit" class="btn btn-success w30">登録</button>
     </hide-text>

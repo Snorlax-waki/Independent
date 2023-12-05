@@ -10,6 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
@@ -35,9 +36,25 @@
         overflow-y: auto;
     }
 
+    .flash_message{
+        animation-name: smooth-fadein-out;
+        animation-duration: 1.5s;
+        animation-timing-function: ease;
+        animation-delay: 0s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+      width: 90%;
+    }
+
+    @keyframes smooth-fadein-out {
+        0% {opacity: 0;}
+      100% {opacity: 1;}
+    }
+
 </style>
 
 @section('content')
+
 <div class="container mt-1 pt-lg-3 pb-lg-5 px-lg-5 bg-white shadow">
 
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -45,8 +62,14 @@
     <a class="btn btn-success w-25" href="/target/register">新規登録</a>
 </div><br>
 
+@if (session('flash_message'))
+        <div class="flash_message alert alert-info opacity-70" id="flash_message">
+            {{ session('flash_message') }}
+        </div>
+@endif
+
 @foreach ($target as $value)
-<div class="card border boder-3 rounded-4" style="width: 90%">
+<div class="card border boder-3 rounded-4 z-index:1" style="width: 90%">
     <div class="row no-gutters">
             <h4 class="card-header rounded-top-4 @if($value->status == "1")bg-danger-subtle @elseif($value->status == "2")bg-info-subtle @else($value->status == "3")bg-success-subtle @endif">
                 <font color="#818181"><b>{{ config('status.status.'.$value->status) }}</b></font>
@@ -55,9 +78,9 @@
                 <div class="col">
                     @if($value->event == "1")<img src="/img/アイコン/ホールケーキのフリーアイコン 2.png" class="event-icon">&emsp;<mark class="bg-danger-subtle rounded-3">&emsp;誕生日&emsp;</mark>
                     @elseif($value->event == "2")<img src="/img/アイコン/クリスマスツリーアイコン9.png" class="event-icon">&emsp;<mark class="bg-success-subtle rounded-3">&emsp;クリスマス&emsp;</mark>
-                    @elseif($value->event == "3")<img src="/img/アイコン/花束アイコン1.png" class="event-icon">&emsp;<mark class="bg-warning-subtle rounded-3">&emsp;母の日&emsp;</mark>
-                    @elseif($value->event == "4")<img src="/img/アイコン/花束アイコン2.png" class="event-icon">&emsp;<mark class="bg-primary-subtle rounded-3">&emsp;父の日&emsp;</mark>
-                    @elseif($value->event == "5")<img src="/img/アイコン/プレゼントアイコン (1).png" class="event-icon">&emsp;<mark class="bg-info-subtle rounded-3">&emsp;敬老の日&emsp;</mark>
+                    @elseif($value->event == "3")<img src="/img/アイコン/花束アイコン2.png" class="event-icon">&emsp;<mark class="bg-warning-subtle rounded-3">&emsp;母の日&emsp;</mark>
+                    @elseif($value->event == "4")<img src="/img/アイコン/花束アイコン1.png" class="event-icon">&emsp;<mark class="bg-info-subtle rounded-3">&emsp;父の日&emsp;</mark>
+                    @elseif($value->event == "5")<img src="/img/アイコン/プレゼントアイコン (1).png" class="event-icon">&emsp;<mark class="bg-primary-subtle rounded-3">&emsp;敬老の日&emsp;</mark>
                     @else($value->event == "6")<img src="/img/アイコン/プレゼントアイコン.png" class="event-icon">&emsp;<mark class="bg-secondary-subtle rounded-3">&emsp;その他&emsp;</mark>
                     @endif
                 </div>
@@ -81,7 +104,7 @@
         $fromDate->setTime(0,0,0);
         $time = $fromDate->diff($toDate);
     @endphp
-    <div class="card-footer text-body-secondary @if( $toDate < $fromDate ) bg-secondary-subtle @elseif( $time->days == 0) bg-danger-subtle @else bg-warning-subtle @endif">
+    <div class="card-footer rounded-bottom-4 text-body-secondary @if( $toDate < $fromDate ) bg-secondary-subtle @elseif( $time->days == 0) bg-danger-subtle @else bg-warning-subtle @endif">
         <font size="4">
             @if( $time->invert == 1 )
             <div class="d-flex flex-row">
@@ -107,4 +130,16 @@
     <div class="justify-content-end">
     {{ $target->links('pagination::bootstrap-4') }}
     </div>
+@stop
+
+@section('js')
+<script>
+(function() {
+    'use strict';
+    $(function(){
+        $('.flash_message').fadeOut(3000);
+    });
+
+})();
+</script>
 @stop

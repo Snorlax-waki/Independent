@@ -57,9 +57,9 @@
                     <div class="col">
                         @if($target->event == "1")<img src="/img/アイコン/ホールケーキのフリーアイコン 2.png" class="ml-4">&nbsp;<mark class="bg-danger-subtle rounded-3">&emsp;誕生日&emsp;</mark>
                         @elseif($target->event == "2")<img src="/img/アイコン/クリスマスツリーアイコン9.png" class="ml-4">&nbsp;<mark class="bg-success-subtle rounded-3">&emsp;クリスマス&emsp;</mark>
-                        @elseif($target->event == "3")<img src="/img/アイコン/花束アイコン1.png" class="ml-4">&nbsp;<mark class="bg-warning-subtle rounded-3">&emsp;母の日&emsp;</mark>
-                        @elseif($target->event == "4")<img src="/img/アイコン/花束アイコン2.png" class="ml-4">&nbsp;<mark class="bg-primary-subtle rounded-3">&emsp;父の日&emsp;</mark>
-                        @elseif($target->event == "5")<img src="/img/アイコン/プレゼントアイコン (1).png" class="ml-4">&nbsp;<mark class="bg-info-subtle rounded-3">&emsp;敬老の日&emsp;</mark>
+                        @elseif($target->event == "3")<img src="/img/アイコン/花束アイコン2.png" class="ml-4">&nbsp;<mark class="bg-warning-subtle rounded-3">&emsp;母の日&emsp;</mark>
+                        @elseif($target->event == "4")<img src="/img/アイコン/花束アイコン1.png" class="ml-4">&nbsp;<mark class="bg-info-subtle rounded-3">&emsp;父の日&emsp;</mark>
+                        @elseif($target->event == "5")<img src="/img/アイコン/プレゼントアイコン (1).png" class="ml-4">&nbsp;<mark class="bg-primary-subtle rounded-3">&emsp;敬老の日&emsp;</mark>
                         @else($target->event == "6")<img src="/img/アイコン/プレゼントアイコン.png" class="ml-4">&nbsp;<mark class="bg-secondary-subtle rounded-3">&emsp;その他&emsp;</mark>
                         @endif
                     </div>
@@ -79,7 +79,7 @@
             @if($target->present!=null)
                 <tr>
                     <td class="bg-warning"><b>これに決めた！</b></td>
-                    <td>○{{ $target->present }}
+                    <td>・{{ $target->present }}
                     @if($target->pre_url!=null)<div class="auto-link">URL&nbsp;:&nbsp;{!! nl2br($pre_url) !!}</div>@endif
                     </td>
                 </tr>
@@ -104,16 +104,9 @@
             @if($target->fav_color!=null && $target->fav_color!="#000000")
                 <tr>
                     <td class="bg-dark-subtle"><b>好きな色</b></td>
-                    <td>@if($target->fav_color == "#ea5550")<img src="/img/color/red.png">
-                        @elseif($target->fav_color == "#00afcc")<img src="/img/color/blue.png">
-                        @elseif($target->fav_color == "#ffff00")<img src="/img/color/yellow.png">
-                        @elseif($target->fav_color == "#00ff00")<img src="/img/color/green.png">
-                        @elseif($target->fav_color == "#eb6ea0")<img src="/img/color/pink.png">
-                        @elseif($target->fav_color == "#ff9328")<img src="/img/color/orange.png">
-                        @elseif($target->fav_color == "#915da3")<img src="/img/color/purple.png">
-                        @elseif($target->fav_color == "#010101")<img src="/img/color/black.png">
-                        @elseif($target->fav_color == "#ffffff")<img src="/img/color/white.png">
-                        @else<font color="{{ $target->fav_color }}" size="6">●</font>@endif
+                    <td>@if($target->fav_color == "#ffffff")<img src="/img/white.png" width:10px;>
+                        @else<font color="{{ $target->fav_color }}" size="6">●</font>
+                        @endif
                     </td>
                 </tr>
             @endif
@@ -138,7 +131,7 @@
             @if($target->idea!=null)
                 <tr>
                     <td class="bg-dark-subtle"><b>プレゼント候補</b>①</b></td>
-                    <td>○{{ $target->idea }}
+                    <td>・{{ $target->idea }}
                     @if($target->url!=null)<div class="auto-link">URL&nbsp;:&nbsp;{!! nl2br($url) !!}</div>@endif
                     </td>
                 </tr>
@@ -146,7 +139,7 @@
             @if($target->idea2!=null)
                 <tr>
                     <td class="bg-dark-subtle"><b>プレゼント候補</b>②</td>
-                    <td>○{{ $target->idea2 }}
+                    <td>・{{ $target->idea2 }}
                     @if($target->url2!=null)<div class="auto-link">URL&nbsp;:&nbsp;{!! nl2br($url2) !!}</div>@endif
                     </td>
                 </tr>
@@ -154,7 +147,7 @@
             @if($target->idea3!=null)
                 <tr>
                     <td class="bg-dark-subtle"><b>プレゼント候補</b>③</td>
-                    <td>○{{ $target->idea3 }}
+                    <td>・{{ $target->idea3 }}
                     @if($target->url3!=null)<div class="auto-link">URL&nbsp;:&nbsp;{!! nl2br($url3) !!}</div>@endif
                     </td>
                 </tr>

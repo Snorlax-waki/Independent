@@ -78,7 +78,7 @@
                     <div class="card h-100">
                     <h6 class="card-header no-guetter text-center">母の日</h6>
                         <div class="card-body d-flex align-items-center ml-3">
-                            <a href="{{ url('target/searchEvent3') }}" class="stretched-link"><img src="/img/アイコン/花束アイコン1.png" class="card-img-bottom"></a>
+                            <a href="{{ url('target/searchEvent3') }}" class="stretched-link"><img src="/img/アイコン/花束アイコン2.png" class="card-img-bottom"></a>
                         </div>  
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                     <div class="card h-100">
                     <h6 class="card-header no-guetter text-center">父の日</h6>
                         <div class="card-body d-flex align-items-center ml-3">
-                            <a href="{{ url('target/searchEvent4') }}" class="stretched-link"><img src="/img/アイコン/花束アイコン2.png" class="card-img-bottom"></a>
+                            <a href="{{ url('target/searchEvent4') }}" class="stretched-link"><img src="/img/アイコン/花束アイコン1.png" class="card-img-bottom"></a>
                         </div>  
                     </div>
                 </div>

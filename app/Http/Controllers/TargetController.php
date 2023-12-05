@@ -32,6 +32,7 @@ class TargetController extends Controller
        $target = Target::find($id);
        $new_target = $target->replicate();
        $new_target->past = $target->present;
+       $new_target->status = '1';
        $new_target->present = '';
        $new_target->pre_url = '';
        $date = Carbon::parse($target->xday);
@@ -40,7 +41,7 @@ class TargetController extends Controller
        $new_target->save();
        $target->delete();
 
-       return redirect('/target/index');
+       return redirect('/target/index')->with('flash_message', ' ↓ 来年のレコードを作成しました ↓ ');
     }
 
     public function register(Request $request){
@@ -55,7 +56,7 @@ class TargetController extends Controller
 
        //バリデーション
        $request->validate([
-           'image' => 'nullable | max:100 | mimes:jpg,png',
+           'image' => 'nullable | max:50 | mimes:jpg,png',
            'name' => 'required | max:100',
            'event' => 'required',
            'xday' => 'required',
@@ -141,7 +142,7 @@ class TargetController extends Controller
 
         //バリデーション
        $request->validate([
-           'image' => 'nullable | max:100',
+           'image' => 'nullable | max:50',
            'name' => 'required | max:100 ',
            'event' => 'required',
            'xday' => 'required',

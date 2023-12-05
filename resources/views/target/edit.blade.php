@@ -72,7 +72,7 @@
     <form action="/targetEdit" method="post" enctype="multipart/form-data" autocomplete="off">
     @csrf
         <div class="mb-3 w30">
-            <span class="badge text-bg-secondary">写真</span>
+            <span class="badge text-bg-secondary">写真</span><font size="2"><b>&nbsp;※50KB以下</b></font>
                 <div class="d-flex flex-row">
                 
                     <div class="p-2">
@@ -477,12 +477,12 @@
             <datalist id="data1">
                 <option value="#ea5550"></option>
                 <option value="#00afcc"></option>
-                <option value="#ffff00"></option>
-                <option value="#00ff00"></option>
+                <option value="#ffdc00"></option>
+                <option value="#00cc00"></option>
                 <option value="#eb6ea0"></option>
                 <option value="#ff9328"></option>
                 <option value="#915da3"></option>
-                <option value="#000000"></option>
+                <option value="#010101"></option>
                 <option value="#ffffff"></option>
             </datalist><br><br>
 
