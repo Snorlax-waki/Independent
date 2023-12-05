@@ -37,18 +37,7 @@
     }
 
     .flash_message{
-        animation-name: smooth-fadein-out;
-        animation-duration: 1.5s;
-        animation-timing-function: ease;
-        animation-delay: 0s;
-        animation-iteration-count: infinite;
-        animation-direction: alternate;
       width: 90%;
-    }
-
-    @keyframes smooth-fadein-out {
-        0% {opacity: 0;}
-      100% {opacity: 1;}
     }
 
 </style>
@@ -137,7 +126,7 @@
 (function() {
     'use strict';
     $(function(){
-        $('.flash_message').fadeOut(4000);
+        $('.flash_message').fadeOut(3000);
     });
 
 })();
