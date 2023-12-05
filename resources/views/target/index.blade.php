@@ -137,7 +137,7 @@
 (function() {
     'use strict';
     $(function(){
-        $('.flash_message').fadeOut(3000);
+        $('.flash_message').fadeOut(4000);
     });
 
 })();
