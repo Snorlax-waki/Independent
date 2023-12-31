@@ -1,67 +1,40 @@
 @extends('adminlte::page')
 
+@section('title', '編集画面')
+
 @section('content_header')
-    <h1>{{ $target->name }}さんの<font size="10">KEY</font>を編集する&nbsp;<img src="/img/アイコン/キー.png" class="key-icon"></h1><br>
-    <h6><font color="red">※<span class="badge text-bg-danger">項目</span>は必須</font></h6>
+    <h1>{{ $target->name }}さんの<font size="10">KEY</font>を編集する&nbsp;<img src="/img/アイコン/キー.png" class="key-icon"></h1>
+@stop
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
 </head>
-
-<style>
-.img{
-        border-radius: 50%;
-        width: 150px;
-    }
-
-.w30{
-    width: 30%;
-    position: relative;
-}
-
-.w50{
-    width: 50%;
-    position: relative;
-}
-
-.key-icon{
-        width: 100px;
-    }
-
-.content-wrapper {
-  overflow-y: auto;
-}
-
-</style>
-@stop
 
 @section('content')
 
-@if (count($errors) > 0)
-    <div class="alert alert-danger">    
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-    
-<div class="container mt-1 pt-lg-3 pb-lg-5 px-lg-5 bg-white shadow">
-
-@if (count($errors) > 0)
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <br><a href="/target/edit">全ての項目をクリアにする</a>
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">    
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
-@endif
+    @endif
 
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <a href="/target/index">>>一覧画面へ戻る</a>
-    </div>
+<div class="d-grid gap-2 d-md-flex justify-content-between">
+    <h6><font color="red">※<span class="badge text-bg-danger">項目</span>は必須</font></h6>
+    <a href="/target/index">>>一覧画面へ戻る</a>
+</div>
+
+<div class="container mt-1 pt-3 pt-lg-3 pb-lg-5 px-lg-5 bg-white shadow">
+
+    @if (count($errors) > 0)
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <br><a href="/target/edit">全ての項目をクリアにする</a>
+            </div>
+    @endif
 
     @if($target->image!=null)
         <div class="p-2 col">
@@ -555,23 +528,65 @@
 </div>
 @stop
 
+@section('css')
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        .img{
+            border-radius: 50%;
+            width: 150px;
+            }
+
+        .w30{
+            width: 30%;
+            position: relative;
+        }
+
+        .w50{
+            width: 50%;
+            position: relative;
+        }
+
+        .key-icon{
+            width: 100px;
+            }
+
+        .content-wrapper {
+            overflow-y: auto;
+        }
+
+        @media screen and (max-width: 500px) {
+            .w30{
+                width: auto;
+                position: relative;
+            }
+
+            .w50{
+                width: auto;
+                position: relative;
+            }
+        }
+    </style>
+@stop
+
 @section('js')
-<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-<script>
-$(document).on("change",".preview-uploader",function(){
-    let elem = this                                             
-    let fileReader = new FileReader();                          
-    fileReader.readAsDataURL(elem.files[0]);                    
-    fileReader.onload = (function () {                          
-        let imgTag = `<img src='${fileReader.result}'>`         
-        $(elem).next(".preview").html(imgTag)                   
-    });
-})
+        <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script>
+        //////プレビュー画像//////
+        $(document).on("change",".preview-uploader",function(){
+            let elem = this                                             
+            let fileReader = new FileReader();                          
+            fileReader.readAsDataURL(elem.files[0]);                    
+            fileReader.onload = (function () {                          
+                let imgTag = `<img src='${fileReader.result}'>`         
+                $(elem).next(".preview").html(imgTag)                   
+            });
+        })
 
-$('#date').datepicker({ dateFormat: 'yy/mm/dd'});
-$('#event2').change(function(){
-    $('#date').datepicker("setDate", (new Date()).getFullYear() + "/12/25");
-});
-
-</script>
+        //////DatePicker//////
+        $('#date').datepicker({ dateFormat: 'yy/mm/dd'});
+        //クリスマスが選択された時
+        $('#event2').change(function(){
+            $('#date').datepicker("setDate", (new Date()).getFullYear() + "/12/25");
+        }); 
+    </script>
 @stop

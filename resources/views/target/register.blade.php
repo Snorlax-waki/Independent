@@ -1,62 +1,42 @@
 @extends('adminlte::page')
 
-@section('content_header')
-    <h1>贈る人を登録する&nbsp;<img src="/img/アイコン/キー.png" class="key-icon"></h1><br>
-    <h6><font color="red">※<span class="badge text-bg-danger">項目</span>は必須</font></h6>
+@section('title', '登録画面')
 
+@section('content_header')
+    <h1>贈る人を登録する&nbsp;<img src="/img/アイコン/キー.png" class="key-icon"></h1>
+@stop
+   
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
 </head>
 
-<style>
-    .w30{
-        width: 30%;
-        position: relative;
-    }
-
-    .w50{
-        width: 50%;
-        position: relative;
-    }
-
-    .key-icon{
-            width: 100px;
-        }
-
-    .content-wrapper {
-         overflow-y: auto;
-    }
-
-</style>
-@stop
-
 @section('content')
-@if (count($errors) > 0)
-    <div class="alert alert-danger">    
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 
-
-<div class="container mt-1 pt-lg-3 pb-lg-5 px-lg-5 bg-white shadow">
-
-@if (count($errors) > 0)
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <br><a href="/target/register">全ての項目をクリアにする</a>
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">    
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
-@endif
+    @endif
 
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+<div class="d-grid gap-2 d-md-flex justify-content-between">
+    <h6><font color="red">※<span class="badge text-bg-danger">項目</span>は必須</font></h6>
     <a href="/target/index">>>一覧画面へ戻る</a>
 </div>
+
+<div class="container mt-1 pt-3 pt-lg-3 pb-lg-5 px-lg-5 bg-white shadow">
+
+    @if (count($errors) > 0)
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <br><a href="/target/register">全ての項目をクリアにする</a>
+            </div>
+    @endif
 
 <form action="/targetRegister" method="post" enctype="multipart/form-data" autocomplete="off">
 @csrf
@@ -535,36 +515,84 @@
 </div>
 @stop
 
+@section('css')
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        .img{
+            border-radius: 50%;
+            width: 150px;
+            }
+
+        .w30{
+            width: 30%;
+            position: relative;
+        }
+
+        .w50{
+            width: 50%;
+            position: relative;
+        }
+
+        .key-icon{
+            width: 100px;
+            }
+
+        .content-wrapper {
+            overflow-y: auto;
+        }
+
+        @media screen and (max-width: 500px) {
+            .w30{
+                width: auto;
+                position: relative;
+            }
+
+            .w50{
+                width: auto;
+                position: relative;
+            }
+        }
+    </style>
+@stop
+
 @section('js')
-<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-<script>
-$(document).on("change",".preview-uploader",function(){
-    let elem = this                                             
-    let fileReader = new FileReader();                          
-    fileReader.readAsDataURL(elem.files[0]);                    
-    fileReader.onload = (function () {                          
-        let imgTag = `<img src='${fileReader.result}'>`         
-        $(elem).next(".preview").html(imgTag)                   
-    });
-})
-
-$('#date').datepicker({ dateFormat: 'yy/mm/dd'});
-$('#event2').change(function(){
-    $('#date').datepicker("setDate", (new Date()).getFullYear() + "/12/25");
-});
-
-function showMoreJq(btn) {
-   var targetId = btn.getAttribute("href"); // 表示対象のid名をhref属性値から得る
-   $(targetId).slideDown("slow");           // 表示対象をアニメーション効果と共に表示
-   $(btn.parentNode).slideUp("fast");       // 続きを読むリンクをアニメーション効果と共に消す
-   return false;                            // リンクとして機能しないようfalseを返す
-}
-// ▼ページ読み込み直後に実行するスクリプト
-$(function(){
-   // 詳細入力フォームを非表示にする
-   $(".hide-text").hide();
-   // もっと入力するリンクがクリックされた際の処理を割り当てる
-   $(".morelink a").click( function() { return showMoreJq(this); } );
-});
-</script>
+        <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script>
+        //////画像プレビュー//////
+        $(document).on("change",".preview-uploader",function(){
+            let elem = this                                             
+            let fileReader = new FileReader();                          
+            fileReader.readAsDataURL(elem.files[0]);                    
+            fileReader.onload = (function () {                          
+                let imgTag = `<img src='${fileReader.result}'>`         
+                $(elem).next(".preview").html(imgTag)                   
+            });
+        })
+    
+        //////DatePicker//////
+        $('#date').datepicker({ dateFormat: 'yy/mm/dd'});
+        //クリスマスを選択した時
+        $('#event2').change(function(){
+            $('#date').datepicker("setDate", (new Date()).getFullYear() + "/12/25");
+        });
+    
+        //////詳細入力表示リンク//////
+        function showMoreJq(btn) {
+            // 表示対象のid名をhref属性値から得る
+           var targetId = btn.getAttribute("href");
+           // 表示対象をアニメーション効果と共に表示
+           $(targetId).slideDown("slow");
+           // もっと入力リンクをアニメーション効果と共に消す          
+           $(btn.parentNode).slideUp("fast");
+           // リンクとして機能しないようfalseを返す      
+           return false;                            
+        }
+        // ページ読み込み直後に実行するスクリプト
+        $(function(){
+           // 詳細入力フォームを非表示にする
+           $(".hide-text").hide();
+           // もっと入力するリンクがクリックされた際の処理を割り当てる
+           $(".morelink a").click( function() { return showMoreJq(this); } );
+        });
+    </script>
 @stop
