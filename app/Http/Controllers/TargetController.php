@@ -12,16 +12,7 @@ use Carbon\Carbon;
 
 class TargetController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
+   
     public function index(Request $request){
 
         $target = Target::orderBy('updated_at','desc')->paginate(5);
